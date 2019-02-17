@@ -93,12 +93,12 @@ SPI (spd ckp ske smp csl hiz)=( 4 0 1 0 1 0 )
 #define SPI_WEL			0x02 // Write Enable
 
 
-static unsigned long chip_size; // in MB
+unsigned long chip_size; // in MB
 
 // 40 MHz for teensy 3
-static SPISettings spi_settings(10000000, MSBFIRST, SPI_MODE0);
+SPISettings spi_settings(10000000, MSBFIRST, SPI_MODE0);
 
-static inline void
+inline void
 spi_cs(int i)
 {
 	// switch out of tristate mode, if we're in it
@@ -132,7 +132,7 @@ setup()
 }
 
 
-static int
+int
 usb_serial_getchar_echo()
 {
 	while (1)
@@ -151,10 +151,10 @@ usb_serial_getchar_echo()
 }
 
 
-static xmodem_block_t xmodem_block;
+xmodem_block_t xmodem_block;
 
 
-static char
+char
 hexdigit(
 	uint8_t x
 )
@@ -167,7 +167,7 @@ hexdigit(
 }
 
 
-static inline uint8_t
+inline uint8_t
 spi_send(
 	uint8_t c
 )
@@ -177,7 +177,7 @@ spi_send(
 
 
 // Select a 4-byte or 3-byte address for the read command
-static void
+void
 spi_choose(
 	uint32_t addr,
 	uint8_t cmd3,
@@ -198,7 +198,7 @@ spi_choose(
 }
 
 
-static void
+void
 spi_read_command(
 	uint32_t addr
 )
@@ -207,7 +207,7 @@ spi_read_command(
 }
 
 
-static void
+void
 spi_write_command(
 	uint32_t addr
 )
@@ -215,7 +215,7 @@ spi_write_command(
 	spi_choose(addr, SPI_CMD_PP, SPI_CMD_PP4);
 }
 
-static void
+void
 spi_erase_command(
 	uint32_t addr
 )
@@ -225,7 +225,7 @@ spi_erase_command(
 
 
 /** Read electronic manufacturer and device id */
-static void
+void
 spi_rdid(void)
 {
 	//delay(2);
@@ -277,7 +277,7 @@ spi_rdid(void)
 
 
 /** Read the status register (RDSR) */
-static uint8_t
+uint8_t
 spi_status(void)
 {
 	spi_cs(1);
@@ -288,7 +288,7 @@ spi_status(void)
 }
 
 
-static void
+void
 spi_status_interactive(void)
 {
 	// read the status register
@@ -302,7 +302,7 @@ spi_status_interactive(void)
 }
 
 
-static void
+void
 spi_write_status(uint8_t sr)
 {
 	spi_cs(1);
@@ -316,7 +316,7 @@ spi_write_status(uint8_t sr)
 }
 
 
-static void
+void
 spi_bank_address_register_interactive(void)
 {
 	spi_cs(1);
@@ -334,7 +334,7 @@ spi_bank_address_register_interactive(void)
 }
 		
 
-static uint32_t
+uint32_t
 usb_serial_readhex(void)
 {
 	uint32_t val = 0;
@@ -357,7 +357,7 @@ usb_serial_readhex(void)
 
 
 /** Set the Write Enable (WEL) bit in the status register */
-static void
+void
 spi_write_enable(void)
 {
 	delay(2);
@@ -371,7 +371,7 @@ spi_write_enable(void)
 }
 
 
-static void
+void
 spi_write_enable_interactive(void)
 {
 	spi_write_enable();
@@ -393,7 +393,7 @@ spi_write_enable_interactive(void)
 
 
 
-static void
+void
 spi_erase_sector(
 	uint32_t addr
 )
@@ -407,7 +407,7 @@ spi_erase_sector(
 }
 
 
-static void
+void
 spi_erase_sector_interactive(void)
 {
 	uint32_t addr = usb_serial_readhex();
@@ -438,7 +438,7 @@ spi_erase_sector_interactive(void)
 	Serial.print(buf);
 }
 	
-static void
+void
 spi_read(
 	uint32_t addr
 )
@@ -486,7 +486,7 @@ spi_read(
 
 
 /** Read the entire ROM out to the serial port. */
-static void
+void
 spi_dump(void)
 {
 	const uint32_t end_addr = chip_size << 20;
@@ -515,7 +515,7 @@ spi_dump(void)
 
 }
 
-static void
+void
 prom_send(void)
 {
 	// We have already received the first nak.
@@ -553,7 +553,7 @@ prom_send(void)
 
 
 /** Write some number of pages into the PROM. */
-static void
+void
 spi_upload(void)
 {
 	uint32_t addr = usb_serial_readhex();
@@ -767,7 +767,7 @@ spi_upload(void)
 #endif
 }
 
-static const char usage[] =
+const char usage[] =
 "Commands:\r\n"
 " i           Read RDID from the flash chip\r\n"
 " rADDR       Read 16 bytes from address\r\n"
@@ -786,7 +786,7 @@ static const char usage[] =
 "To read the entire ROM, start an x-modem transfer.\r\n"
 "\r\n";
 
-static uint32_t addr;
+uint32_t addr;
 
 void
 loop()

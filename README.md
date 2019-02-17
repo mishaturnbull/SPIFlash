@@ -1,7 +1,7 @@
 spiflash
 ====
 
-This repository is a GitHub fork of the repository found at [this BitBucket repo](https://bitbucket.org/hudson/spiflash).  I claim no responsibility/rights for this repo.  The only change is this line of the `README.md` file; all other files are exactly as they are on the original source.
+This repository is a GitHub fork of the repository found at [this BitBucket repo](https://bitbucket.org/hudson/spiflash).  I claim no responsibility/rights for this repo.  See commit log for changes.
 
 More info: https://trmm.net/SPI_flash
 
