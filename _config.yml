@@ -1,0 +1,9 @@
+# name
+name: spiflash extended documentation
+description: More documentation for Trammell Hudson's work for stupid people like me who need references every time.
+
+# site details
+theme: jekyll-theme-minimal
+author: Michael Turnbull
+author_email: mishaturnbull@gmail.com
+show_downloads: true
