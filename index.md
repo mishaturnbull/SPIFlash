@@ -7,6 +7,7 @@ The pinout of the Teensy is as follows:
 >>> to do: insert image
 
 On the Teensy 3.2, the wiring is as follows:
+
 | Pin number (Teensy) | Function (from SOIC clip page) | Color (from SOIC clip page) |
 | ------------------- | ------------------------------ | --------------------------- |
 | 10                  | `!CE` (chip select)            | white                       |
