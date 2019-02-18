@@ -27,3 +27,18 @@ For 8-pin chips, see the [8-pin pinout details][8pin].  For 16-pin chips (less c
 [8pin]: 8pin.html "8-SOIC-clip pinout"
 [16pin]: 16pin.html "16-SOIC-clip pinout"
 
+Once everything is wired, connect the Teensy with a micro-USB cable to the computer.  It should show up as a serial device, typically `/dev/ttyACM0` or something.
+
+## Serial commands
+
+Assuming your device label is `/dev/ttyACM0`:
+
+* Most useful:
+  * Read the entire image: `rx < /dev/ttyACM0 > /dev/ttyACM0 rom.bin`
+  * Write a section: `pv new-rom.section.rom > /dev/ttyACM0`
+* Less useful, lower-level:
+  * Read 16 bytes from 0x7f0000: `r7f0000`
+  * Erase a sector at address 0x7f0000: `e7f0000`  (typically not needed, since upload erases sectors as needed)
+  * Upload (and erase) 0x1a0000 bytes to 0x190000: `pv new-section.rom > /dev/ttyACM0`
+  * Read chip ID: `i`  (If it comes back with entirely 0xFF or 0x00, then something is wrong)
+
